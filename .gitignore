@@ -1,0 +1,17 @@
+APP/bin/
+APP/obj/
+
+AVL/bin/
+AVL/obj/
+
+BLL/bin/
+BLL/obj/
+
+CDL/bin/
+CDL/obj/
+
+DAL/bin/
+DAL/obj/
+
+VML/obj/
+VML/bin/

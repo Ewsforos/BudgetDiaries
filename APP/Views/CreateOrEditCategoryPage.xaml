@@ -1,0 +1,43 @@
+﻿<Page
+    x:Class="APP.Views.CreateOrEditCategoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:APP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:AVL.Controls"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="EditPartColumn" Width="360"/>
+            <ColumnDefinition x:Name="AccountStatisticsPartColumn" Width="*"/>
+        </Grid.ColumnDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="AdaptiveVisualStateGroup">
+                <VisualState x:Name="VisualStateNarrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{Binding VisualStateNarrowMinWidth, RelativeSource={RelativeSource TemplatedParent}}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="AccountStatisticsControl.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="EditPartColumn.Width" Value="1*" />
+                        <Setter Target="AccountStatisticsPartColumn.Width" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualStateWild">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="AccountStatisticsControl.(UIElement.Visibility)" Value="Visible"/>
+                        <Setter Target="EditPartColumn.Width" Value="360" />
+                        <Setter Target="AccountStatisticsPartColumn.Width" Value="*" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <controls:CreateOrEditCategoryControl x:Name="CreateOrEditControl"/>
+        <Grid x:Name="AccountStatisticsControl" Grid.Column="1"/>
+    </Grid>
+</Page>

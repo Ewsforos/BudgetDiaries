@@ -1,0 +1,102 @@
+﻿<UserControl
+    x:Class="AVL.Controls.PeriodChooser"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AVL.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Top"
+    HorizontalContentAlignment="Left"
+    VerticalContentAlignment="Top">
+    <Grid Width="{Binding ActualWidth, ElementName=MasterGrid}"
+          Margin="0"
+          HorizontalAlignment="Left"
+          VerticalAlignment="Top" Background="{Binding BorderBrush, ElementName=calendarView, Mode=OneWay}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="2"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <ToggleButton x:Name="PeriodDay"
+			          Grid.Column="0"
+			          IsChecked="True"
+			          Content="день"
+			          HorizontalAlignment="Stretch"
+			          VerticalAlignment="Stretch"
+			          Margin="1,1,0,0"
+                      MinWidth="75"/>
+        <ToggleButton x:Name="PeriodWeek"
+			          Grid.Column="2"
+			          IsChecked="False"
+			          Content="неделя"
+			          HorizontalAlignment="Stretch"
+			          VerticalAlignment="Stretch"
+			          Margin="0,1,0,0" MinWidth="75"/>
+        <ToggleButton x:Name="PeriodMonth"
+			          Grid.Column="4"
+			          IsChecked="False"
+			          Content="месяц"
+			          HorizontalAlignment="Stretch"
+			          VerticalAlignment="Stretch"
+			          Margin="0,1,0,0" MinWidth="75"/>
+        <ToggleButton x:Name="PeriodCustom"
+			          Grid.Column="6"
+			          IsChecked="False"
+			          Content="интервал"
+			          HorizontalAlignment="Stretch"
+			          VerticalAlignment="Stretch"
+			          Margin="0,1,1,0"
+                      MinWidth="75"/>
+        <CalendarView x:Name="calendarView" BorderThickness="0"
+			          Grid.Row="2"
+			          Grid.ColumnSpan="7"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center"/>
+        <Grid Margin="0"
+			  Grid.Row="4"
+			  Grid.ColumnSpan="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="Reset"
+				    Grid.Column="0"
+				    Content="сбросить"
+				    HorizontalAlignment="Stretch"
+				    VerticalAlignment="Stretch"
+				    Margin="0,0,0,1"
+				    MinWidth="75"/>
+            <Button x:Name="Cancel"
+				    Grid.Column="2"
+				    Content="отменить"
+				    HorizontalAlignment="Stretch"
+				    VerticalAlignment="Stretch"
+				    Margin="0,0,0,1"
+				    MinWidth="75"/>
+            <Button x:Name="Ok"
+				    Grid.Column="4"
+				    Content="применить"
+				    HorizontalAlignment="Stretch"
+				    VerticalAlignment="Stretch"
+				    Margin="0,0,1,1"
+				    MinWidth="75" RenderTransformOrigin="0.5,0.5"/>
+        </Grid>
+    </Grid>
+</UserControl>

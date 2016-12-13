@@ -1,0 +1,156 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:APP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:AVL.Controls"
+    xmlns:T10Controls="using:Template10.Controls"
+    xmlns:triggers="using:WindowsStateTriggers"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:behaviors="using:Template10.Behaviors"
+    xmlns:vm="using:APP.ViewModels"
+    x:Class="APP.Views.CategoresPage"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <DataTemplate x:Key="CategorнListViewItemTemplate">
+            <Grid MinHeight="48"
+                  BorderThickness="0"
+                  Height="60"
+                  Background="#00000000">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="RightTapped">
+                        <behaviors:OpenFlyoutAction/>
+                    </core:EventTriggerBehavior>
+                    <core:EventTriggerBehavior EventName="Holding">
+                        <behaviors:OpenFlyoutAction/>
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <FlyoutBase.AttachedFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem x:Name="EditAccountMenuButton"
+                                        Click="EditAccountMenuButton_Click"
+                                        Text="Редактировать"/>
+                        <MenuFlyoutItem x:Name="DeleteAccountMenuButton"
+                                        Click="DeleteAccountMenuButton_Click"
+                                        Text="Удалить"/>
+                    </MenuFlyout>
+                </FlyoutBase.AttachedFlyout>
+                <BitmapIcon UriSource="{Binding IconPath, FallbackValue=ms-appx:///Assets/CategoriesIcons/Entertaiment.png}"
+                            Foreground="{Binding ForegroundBrush, FallbackValue={ThemeResource ApplicationForegroundThemeBrush}}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="25"
+                            Height="25"/>
+                <TextBlock TextWrapping="Wrap"
+                           Foreground="{Binding ForegroundBrush, FallbackValue={ThemeResource ApplicationForegroundThemeBrush}}"
+                           Text="{Binding Name, FallbackValue=Категория}"
+                           Grid.Column="1"
+                           Margin="17,0"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource SubtitleTextBlockStyle}"
+                           MaxLines="2"
+                           TextTrimming="CharacterEllipsis"
+                           TextLineBounds="Tight"
+                           OpticalMarginAlignment="TrimSideBearings"
+                           FontFamily="Segoe UI Semilight"
+                           FontSize="18.5"/>
+                <Border BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}" BorderThickness="0,0,0,1" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="-10,0" Opacity="0.05"/>
+            </Grid>
+        </DataTemplate>
+        <Style x:Key="CategoryItemContainerStyle" TargetType="ListViewItem">
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="Padding" Value="12,0,12,0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="MinWidth" Value="{ThemeResource ListViewItemMinWidth}"/>
+            <Setter Property="MinHeight" Value="{ThemeResource ListViewItemMinHeight}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <ListViewItemPresenter CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                               CheckMode="Inline"
+                                               ContentTransitions="{TemplateBinding ContentTransitions}"
+                                               CheckBoxBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                               DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
+                                               DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
+                                               DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                                               DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                                               FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}"
+                                               FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                               PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
+                                               PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}"
+                                               PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
+                                               PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}"
+                                               ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                               SelectedPressedBackground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                               SelectionCheckMarkVisualEnabled="True"
+                                               SelectedForeground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                               SelectedPointerOverBackground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                               SelectedBackground="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Page.DataContext>
+        <vm:CategoriesPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <Grid x:Name="LayoutRoot"
+          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="AdaptiveVisualStateGroup">
+                <VisualState x:Name="VisualStateNarrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{Binding VisualStateNarrowMinWidth, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <controls:MasterDetailsView x:Name="CategoresList"
+                                    Details="{x:Bind ViewModel.Selected, Mode=OneWay}"
+                                    IsDetailsLoading="{x:Bind ViewModel.IsCategoryDetailsLoading, FallbackValue=false, Mode=OneWay}"
+                                    IsMasterLoading="{x:Bind ViewModel.IsCategoriesLoading, FallbackValue=false, Mode=OneWay}"
+                                    ItemsSource="{x:Bind ViewModel.Categories, Mode=OneWay}"
+                                    ItemContainerStyle="{StaticResource CategoryItemContainerStyle}"
+                                    SelectedItem="{x:Bind ViewModel.Selected, Mode=TwoWay}"
+                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                    ItemTemplate="{StaticResource CategorнListViewItemTemplate}"
+                                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <controls:MasterDetailsView.MasterCommandBarContent>
+                <T10Controls:PageHeader Content="Список категорий"
+                                        Background="{x:Null}"
+                                        Foreground="White"
+                                        RenderTransformOrigin="0.5,0.5"
+                                        Margin="0"
+                                        FontSize="20"
+                                        FontFamily="Segoe UI Semibold"/>
+
+            </controls:MasterDetailsView.MasterCommandBarContent>
+            <controls:MasterDetailsView.MasterCommands>
+                <AppBarButton x:Name="AddNewCategory"
+                              Icon="Add"
+                              Label="Добавить категорию"
+                              Click="AppBarButton_Click"
+                              Loaded="AddNewCategory_Loaded"/>
+            </controls:MasterDetailsView.MasterCommands>
+            <x:String>Sample</x:String>
+            <x:String>Sample</x:String>
+            <x:String>Sample</x:String>
+        </controls:MasterDetailsView>
+    </Grid>
+</Page>
